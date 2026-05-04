@@ -1,0 +1,25 @@
+{
+  "name": "aurum-backend",
+  "version": "1.0.0",
+  "description": "Backend for AURUM luxury ecommerce",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "studio": "prisma studio"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "prisma": "^5.20.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "@prisma/client": "^5.20.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
