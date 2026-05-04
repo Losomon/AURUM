@@ -4,7 +4,7 @@ import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from
 import { Heart, ShoppingBag, ArrowRight, Trash2, Check } from 'lucide-react';
 import { useWishlist } from '@/hooks/useWishlist';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-
+import { base44 } from '@/api/base44Client';
 
 function WishlistCard({ item, index }) {
   const ref = useRef(null);
