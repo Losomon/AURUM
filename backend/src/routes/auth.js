@@ -35,6 +35,4 @@ router.post('/login', async (req, res) => {
 });
 
 export default router;
-</xai:function_call
-<xai:function_call naame="edit_file">
-<parameter name="path">c:/Users/solom/OneDrive/Desktop/AURUM/backend/src/index.js<PrismaClient
+
