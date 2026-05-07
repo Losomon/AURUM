@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
+import { PRIMARY_INT, PRIMARY_KEYLIGHT_INT, PRIMARY_SATELLITE_INT } from '@/lib/brandColors';
 
 export default function HeroScene() {
   const containerRef = useRef(null);

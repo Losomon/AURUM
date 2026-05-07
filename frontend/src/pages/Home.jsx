@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import HeroScene from '../components/3d/HeroScene';
