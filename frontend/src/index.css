@@ -1,10 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;400;600;700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
+@theme {
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Inter', sans-serif;
 
@@ -14,7 +11,6 @@
   --color-card-foreground: 40 20% 95%;
   --color-popover: 0 0% 7%;
   --color-popover-foreground: 40 20% 95%;
-  /* Gold accent — also defined as hex in src/lib/brandColors.js for Three.js / inline styles */
   --color-primary: 40 60% 50%;
   --color-primary-foreground: 0 0% 4%;
   --color-secondary: 0 0% 12%;
@@ -28,7 +24,6 @@
   --color-border: 0 0% 16%;
   --color-input: 0 0% 16%;
   --color-ring: 40 60% 50%;
-
   --color-chart-1: 40 60% 50%;
   --color-chart-2: 173 58% 39%;
   --color-chart-3: 197 37% 24%;
@@ -39,16 +34,12 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-
   body {
-    /* theme(colors.*) is HSL channel triples from :root — must wrap in hsl() */
     background-color: hsl(var(--color-background));
     color: hsl(var(--color-foreground));
     font-family: var(--font-body);
   }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
   }

@@ -6,9 +6,21 @@ import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
+import { base44 } from '@/api/base44Client';
 import ProductScene from '../components/3d/ProductScene';
 import MaterialStory from '../components/products/MaterialStory';
 import TestimonialsCarousel from '../components/TestimonialsCarousel';
+
+const MOCK_PRODUCTS = [
+  { id: '1', name: 'Cashmere Overcoat', price: 1295, image_url: 'https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=600&q=85&auto=format', category: 'outerwear', description: 'Luxurious cashmere with a tailored fit. A statement piece for winter.', in_stock: true, sizes: ['XS','S','M','L'], colors: ['Black'] },
+  { id: '2', name: 'Noir Evening Dress', price: 895, image_url: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=85&auto=format', category: 'dresses', description: 'Silk midnight black dress with subtle shimmer.', in_stock: true, sizes: ['XS','S','M'], colors: ['Black'] },
+  { id: '3', name: 'Merino Knit Pullover', price: 425, image_url: 'https://images.unsplash.com/photo-1576566583005-7ac1b0d3d7e1?w=600&q=85&auto=format', category: 'tops', description: 'Soft merino wool pullover.', in_stock: true, sizes: ['S','M','L'], colors: ['Cream','Grey'] },
+  { id: '4', name: 'Linen Wide-Leg Pants', price: 375, image_url: 'https://images.unsplash.com/photo-1594633312536-3f5e57a3a5c7?w=600&q=85&auto=format', category: 'bottoms', description: 'Breathable linen with perfect drape.', in_stock: true, sizes: ['28','30','32'], colors: ['Natural','Black'] },
+  { id: '5', name: 'Silk Drape Blouse', price: 295, image_url: 'https://images.unsplash.com/photo-1564568193198-8bd5862ae5b7?w=600&q=85&auto=format', category: 'tops', description: 'Flowing silk with subtle drape.', in_stock: true, sizes: ['XS','S','M'], colors: ['Ivory'] },
+  { id: '6', name: 'Tailored Wool Trousers', price: 450, image_url: 'https://images.unsplash.com/photo-1583743814966-843287200372?w=600&q=85&auto=format', category: 'bottoms', description: 'Perfectly tailored wool trousers.', in_stock: true, sizes: ['28','30','32','34'], colors: ['Charcoal'] },
+  { id: '7', name: 'Double-Breasted Blazer', price: 695, image_url: 'https://images.unsplash.com/photo-1529376625391-2be9a2e0f6b9?w=600&q=85&auto=format', category: 'outerwear', description: 'Structured blazer with peak lapels.', in_stock: true, sizes: ['36','38','40'], colors: ['Navy'] },
+  { id: '8', name: 'Cropped Leather Jacket', price: 795, image_url: 'https://images.unsplash.com/photo-1551024601-bec79cee3d53?w=600&q=85&auto=format', category: 'outerwear', description: 'Premium leather with modern cropped fit.', in_stock: false, sizes: ['XS','S','M'], colors: ['Black'] },
+];
 
 export default function ProductDetail() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -25,9 +37,10 @@ export default function ProductDetail() {
     queryKey: ['product', productId],
     queryFn: () => base44.entities.Product.filter({ id: productId }),
     enabled: !!productId,
+    initialData: MOCK_PRODUCTS.filter(p => p.id === productId),
   });
 
-  const product = products[0];
+  const product = products[0] || MOCK_PRODUCTS.find(p => p.id === productId);
 
   const addToCartMutation = useMutation({
     mutationFn: (data) => base44.entities.CartItem.create(data),

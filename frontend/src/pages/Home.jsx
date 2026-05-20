@@ -14,16 +14,28 @@ import TestimonialsCarousel from '../components/TestimonialsCarousel';
 import VirtualShowroom from '../components/home/VirtualShowroom';
 import AIStylist from '../components/home/AIStylist';
 
+const MOCK_PRODUCTS = [
+  { id: '1', name: 'Cashmere Overcoat', price: 1295, image_url: 'https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=600&q=85&auto=format', category: 'outerwear', featured: true },
+  { id: '2', name: 'Noir Evening Dress', price: 895, image_url: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=85&auto=format', category: 'dresses', featured: true },
+  { id: '3', name: 'Merino Knit Pullover', price: 425, image_url: 'https://images.unsplash.com/photo-1576566583005-7ac1b0d3d7e1?w=600&q=85&auto=format', category: 'tops' },
+  { id: '4', name: 'Linen Wide-Leg Pants', price: 375, image_url: 'https://images.unsplash.com/photo-1594633312536-3f5e57a3a5c7?w=600&q=85&auto=format', category: 'bottoms' },
+  { id: '5', name: 'Silk Drape Blouse', price: 295, image_url: 'https://images.unsplash.com/photo-1564568193198-8bd5862ae5b7?w=600&q=85&auto=format', category: 'tops' },
+  { id: '6', name: 'Tailored Wool Trousers', price: 450, image_url: 'https://images.unsplash.com/photo-1583743814966-843287200372?w=600&q=85&auto=format', category: 'bottoms' },
+  { id: '7', name: 'Double-Breasted Blazer', price: 695, image_url: 'https://images.unsplash.com/photo-1529376625391-2be9a2e0f6b9?w=600&q=85&auto=format', category: 'outerwear' },
+  { id: '8', name: 'Cropped Leather Jacket', price: 795, image_url: 'https://images.unsplash.com/photo-1551024601-bec79cee3d53?w=600&q=85&auto=format', category: 'outerwear' },
+];
+
 export default function Home() {
   const { data: products = [] } = useQuery({
     queryKey: ['all-products'],
     queryFn: () => base44.entities.Product.list('-created_date', 8),
-    initialData: [],
+    initialData: MOCK_PRODUCTS,
   });
 
-  const featured = products.filter((p) => p.featured).slice(0, 4);
-  const spotlightProducts = featured.length >= 2 ? featured : products.slice(0, 4);
-  const gridProducts = products.slice(0, 8);
+  const displayProducts = products.length > 0 ? products : MOCK_PRODUCTS;
+  const featured = displayProducts.filter((p) => p.featured).slice(0, 4);
+  const spotlightProducts = featured.length >= 2 ? featured : displayProducts.slice(0, 4);
+  const gridProducts = displayProducts.slice(0, 8);
 
   return (
     <div className="overflow-x-hidden">

@@ -6,6 +6,17 @@ import ProductCard3D from '../components/products/ProductCard3D';
 import CategoryFilter from '../components/products/CategoryFilter';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
+const MOCK_PRODUCTS = [
+  { id: '1', name: 'Cashmere Overcoat', price: 1295, image_url: 'https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=600&q=85&auto=format', category: 'outerwear' },
+  { id: '2', name: 'Noir Evening Dress', price: 895, image_url: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=85&auto=format', category: 'dresses' },
+  { id: '3', name: 'Merino Knit Pullover', price: 425, image_url: 'https://images.unsplash.com/photo-1576566583005-7ac1b0d3d7e1?w=600&q=85&auto=format', category: 'tops' },
+  { id: '4', name: 'Linen Wide-Leg Pants', price: 375, image_url: 'https://images.unsplash.com/photo-1594633312536-3f5e57a3a5c7?w=600&q=85&auto=format', category: 'bottoms' },
+  { id: '5', name: 'Silk Drape Blouse', price: 295, image_url: 'https://images.unsplash.com/photo-1564568193198-8bd5862ae5b7?w=600&q=85&auto=format', category: 'tops' },
+  { id: '6', name: 'Tailored Wool Trousers', price: 450, image_url: 'https://images.unsplash.com/photo-1583743814966-843287200372?w=600&q=85&auto=format', category: 'bottoms' },
+  { id: '7', name: 'Double-Breasted Blazer', price: 695, image_url: 'https://images.unsplash.com/photo-1529376625391-2be9a2e0f6b9?w=600&q=85&auto=format', category: 'outerwear' },
+  { id: '8', name: 'Cropped Leather Jacket', price: 795, image_url: 'https://images.unsplash.com/photo-1551024601-bec79cee3d53?w=600&q=85&auto=format', category: 'outerwear' },
+];
+
 export default function Shop() {
   const urlParams = new URLSearchParams(window.location.search);
   const initialCategory = urlParams.get('category') || 'all';
@@ -16,15 +27,17 @@ export default function Shop() {
   const { data: products = [], isLoading } = useQuery({
     queryKey: ['products'],
     queryFn: () => base44.entities.Product.list('-created_date', 100),
-    initialData: [],
+    initialData: MOCK_PRODUCTS,
   });
 
+  const displayProducts = products.length > 0 ? products : MOCK_PRODUCTS;
+
   const filteredProducts = useMemo(() => {
-    let filtered = category === 'all' ? products : products.filter((p) => p.category === category);
+    let filtered = category === 'all' ? displayProducts : displayProducts.filter((p) => p.category === category);
     if (sortBy === 'price_low') filtered = [...filtered].sort((a, b) => (a.price || 0) - (b.price || 0));
     else if (sortBy === 'price_high') filtered = [...filtered].sort((a, b) => (b.price || 0) - (a.price || 0));
     return filtered;
-  }, [products, category, sortBy]);
+  }, [displayProducts, category, sortBy]);
 
   return (
     <div className="min-h-screen">
